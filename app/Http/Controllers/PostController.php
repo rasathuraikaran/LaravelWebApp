@@ -56,5 +56,10 @@ public function destroy(Post $post){
     return redirect('/posts');
 
 }
+public function getPost(){
+
+    $post=Post::all();
+    return $post;
+   }
 
 }

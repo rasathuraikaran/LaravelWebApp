@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,15 @@ Route::put('/posts/{post}',[PostController::class,'update']);
 Route::get('/posts/create',[PostController::class,'create']);
 Route::delete('/posts/{post}',[PostController::class,'destroy']);
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+Route::resource('user',UserController::class);
